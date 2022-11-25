@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { isValidIpAddress } from "./ip-address-service";
 
+const countryRoute = "/:ipAddress/country";
 const country = async (request: Request, response: Response) => {
   const ipAddress = request.params.ipAddress;
 
@@ -12,4 +13,4 @@ const country = async (request: Request, response: Response) => {
 };
 
 export const IpAddressRoot = "/ipAddress";
-export const IpAddressRouter = Router().get("/:ipAddress/country", country);
+export const IpAddressRouter = Router().get(countryRoute, country);
