@@ -6,11 +6,7 @@ import morgan from "morgan";
 
 const app = express();
 
-app
-  .use(helmet())
-  .use(bodyParser.json())
-  .use(cors())
-  .use(morgan("combined"));
+app.use(helmet()).use(bodyParser.json()).use(cors()).use(morgan("combined"));
 
 app.get("/", (req, res) => {
   res.send("Hello World");
