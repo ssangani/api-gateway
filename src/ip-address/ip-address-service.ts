@@ -29,7 +29,7 @@ export const getCountry = async (ipAddress: string): Promise<string | null> => {
     if (country !== null) {
       saveCountryToMemory(ipAddress, country);
     } else {
-      Logger.info("IP API miss");
+      Logger.info("Secondary vendor miss");
     }
 
     return country;
