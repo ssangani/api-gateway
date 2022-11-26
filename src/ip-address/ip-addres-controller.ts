@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { isValidIpAddress } from "./ip-address-service";
+import { getCountry, isValidIpAddress } from "./ip-address-service";
 
 const countryRoute = "/:ipAddress/country";
 const country = async (request: Request, response: Response) => {
@@ -9,7 +9,14 @@ const country = async (request: Request, response: Response) => {
     return response.status(400).send();
   }
 
-  response.sendStatus(200);
+  const country = await getCountry(ipAddress);
+
+  return response
+    .status(200)
+    .json({
+      country: country,
+    })
+    .send();
 };
 
 export const IpAddressRoot = "/ipAddress";
