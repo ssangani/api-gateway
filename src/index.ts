@@ -2,10 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import helmet from "helmet";
-import {
-  IpAddressRoot,
-  IpAddressRouter,
-} from "./ip-address/ip-addres-controller";
+import { IpAddressRoot, IpAddressRouter } from "./ip-address/controller";
 import { morganMiddleware } from "./middleware/morgan-middleware";
 
 const app = express()
