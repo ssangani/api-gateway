@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import Logger from "./logger";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const errorHandler = (
   err: Error,
   req: Request,
   res: Response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
 ) => {
   Logger.error(err);
