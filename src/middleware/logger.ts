@@ -1,4 +1,5 @@
 import winston from "winston";
+import { appConfig } from "./app-config";
 
 const levels = {
   error: 0,
@@ -9,8 +10,7 @@ const levels = {
 };
 
 const level = () => {
-  const env = process.env.NODE_ENV || "development";
-  const isDev = env === "development" || "staging";
+  const isDev = appConfig.environment === "development" || "staging";
   return isDev ? "debug" : "warn";
 };
 

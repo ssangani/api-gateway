@@ -1,14 +1,10 @@
 import { RateLimiter } from "limiter";
+import { appConfig } from "../middleware/app-config";
 import Logger from "../middleware/logger";
 import { ApiResponse, IpAddressLookup } from "./models";
 
-const DEFAULT_PRIMARY_VENDOR_RATE_LIMIT = 10;
-const primaryVendorRateLimit = (): number => {
-  const limit = parseInt(process.env.PRIMARY_VENDOR_RATE_LIMIT || "");
-  return isNaN(limit) ? DEFAULT_PRIMARY_VENDOR_RATE_LIMIT : limit;
-};
 const primaryVendorRateLimiter = new RateLimiter({
-  tokensPerInterval: primaryVendorRateLimit(),
+  tokensPerInterval: appConfig.api.primary.rateLimit,
   interval: "hour",
   fireImmediately: true,
 });
@@ -49,13 +45,8 @@ export const getFromPrimaryVendor = async (
   }
 };
 
-const DEFAULT_SECONDARY_VENDOR_RATE_LIMIT = 10;
-const secondaryVendorRateLimit = (): number => {
-  const limit = parseInt(process.env.SECONDARY_VENDOR_RATE_LIMIT || "");
-  return isNaN(limit) ? DEFAULT_SECONDARY_VENDOR_RATE_LIMIT : limit;
-};
 const secondaryVendorRateLimiter = new RateLimiter({
-  tokensPerInterval: secondaryVendorRateLimit(),
+  tokensPerInterval: appConfig.api.primary.rateLimit,
   interval: "hour",
   fireImmediately: true,
 });

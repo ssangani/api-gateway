@@ -1,9 +1,9 @@
 import morgan, { StreamOptions } from "morgan";
+import { appConfig } from "./app-config";
 import Logger from "./logger";
 
 const stream: StreamOptions = {
   write: (message: string) => Logger.http(message),
 };
-const logFormat: string = process.env.LOG_FORMAT || "dev";
 
-export const morganMiddleware = morgan(logFormat, { stream });
+export const morganMiddleware = morgan(appConfig.morgan.format, { stream });
