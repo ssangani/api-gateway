@@ -2,6 +2,7 @@ import { RateLimiter } from "limiter";
 import { appConfig } from "../middleware/app-config";
 import Logger from "../middleware/logger";
 import { ApiResponse, IpAddressLookup } from "./models";
+import axios from "axios";
 
 const primaryVendorRateLimiter = new RateLimiter({
   tokensPerInterval: appConfig.api.primary.rateLimit,
@@ -21,8 +22,7 @@ export const getFromPrimaryVendor = async (
       };
     }
 
-    const url = `http://ip-api.com/json/${ipAddress}`;
-    const response = await fetch(url);
+    const response = await axios.get(`http://ip-api.com/json/${ipAddress}`);
 
     if (response.status !== 200) {
       throw new Error(
@@ -30,9 +30,8 @@ export const getFromPrimaryVendor = async (
       );
     }
 
-    const data = await response.json();
     const lookup: IpAddressLookup = {
-      country: data["country"],
+      country: response.data["country"],
     };
     return {
       lookup,
@@ -63,18 +62,15 @@ export const getFromSecondaryVendor = async (
       };
     }
 
-    const url = `https://ipapi.co/${ipAddress}/json`;
-    const response = await fetch(url);
-
+    const response = await axios.get(`http://ipwho.is/${ipAddress}`);
     if (response.status !== 200) {
       throw new Error(
         `Unable to retrieve data for ${ipAddress}: ${response.statusText}`
       );
     }
 
-    const data = await response.json();
     const lookup: IpAddressLookup = {
-      country: data["country_name"],
+      country: response.data["country"],
     };
     return {
       lookup,
