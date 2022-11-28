@@ -26,6 +26,13 @@ cp .env.sample .env
 npm run app
 ```
 
+### App config
+
+* `NODE_ENV` - Application environment viz. `development`, `staging`, or `production`
+* `LOG_FORMAT` - Log format for `morgan` viz. `combined`, `combined`, `common`, `dev`, `tiny`, or `short`. (ref: https://github.com/expressjs/morgan#predefined-formats)
+* `PRIMARY_VENDOR_RATE_LIMIT` - Hourly rate limit for primary IP API
+* `SECONDARY_VENDOR_RATE_LIMIT` - Hourly rate limit for secondary IP API
+
 ## Sample requests
 
 ### Get country for given IP Address
